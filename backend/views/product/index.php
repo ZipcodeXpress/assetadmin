@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     // if(empty($model->product_thumbnail))return null;
                                     // return  '<img src="' . '/' .  . '" width="90px">&nbsp;&nbsp;&nbsp;';
                                     'value' => function ($model) {
-                                            $thumbnail = trim((string)$model->product_thumbnail);
+                                            $thumbnail = trim((string) $model->product_thumbnail);
                                             if ($thumbnail === '') {
                                                 return null;
                                             }

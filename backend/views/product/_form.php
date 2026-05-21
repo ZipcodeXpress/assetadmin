@@ -36,7 +36,7 @@ use yii\widgets\ActiveForm;
 
 <?php
 if ($model->product_image) {
-    $thumbnail = trim((string)$model->product_thumbnail);
+    $thumbnail = trim((string) $model->product_thumbnail);
     if (preg_match('/^(https?:)?\/\//i', $thumbnail)) {
         $parts = parse_url($thumbnail);
         $path = isset($parts['path']) ? $parts['path'] : '';
