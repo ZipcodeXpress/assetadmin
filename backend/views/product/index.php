@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="col-sm-3">
                             <h3><?= Html::encode($this->title) ?></h3>
                             <p>
-                                <?php if (true) : ?>
+                                <?php if (true): ?>
                                     <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-primary']) ?>
                                 <?php endif ?>
                             </p>
@@ -63,31 +63,31 @@ $this->params['breadcrumbs'][] = $this->title;
                                 //         },
                                 //        'filter' => Product::getProductcategoryName(),
                                 //     ],
-
+                        
                                 [
                                     'attribute' => 'product_thumbnail',
                                     'format' => 'html',
                                     'label' => 'Product Photo',
                                     'headerOptions' => ['width' => '90'],
-                                    'contentOptions' => ['style'=>'padding:0px 0px 0px 40px;vertical-align: middle;'],
+                                    'contentOptions' => ['style' => 'padding:0px 0px 0px 40px;vertical-align: middle;'],
                                     // 'value'=> function ($model,$key,$index,$column){
                                     // if(empty($model->product_thumbnail))return null;
                                     // return  '<img src="' . '/' .  . '" width="90px">&nbsp;&nbsp;&nbsp;';
                                     'value' => function ($model) {
-                                        $thumbnail = (string)$model->product_thumbnail;
-                                        if ($thumbnail === '') {
-                                            return null;
-                                        }
+                                            $thumbnail = (string) $model->product_thumbnail;
+                                            if ($thumbnail === '') {
+                                                return null;
+                                            }
 
-                                        if (preg_match('/^https?:\/\//i', $thumbnail)) {
-                                            $imageUrl = $thumbnail;
-                                        } else {
-                                            $imageUrl = rtrim(Yii::$app->params['CDN_ADDRESS'], '/') . '/' . ltrim($thumbnail, '/');
-                                        }
+                                            if (preg_match('/^https?:\/\//i', $thumbnail)) {
+                                                $imageUrl = $thumbnail;
+                                            } else {
+                                                $imageUrl = rtrim(Yii::$app->params['CDN_ADDRESS'], '/') . '/' . ltrim($thumbnail, '/');
+                                            }
 
-                                        return Html::img($imageUrl, ['width' => '60px']);
-                                        //return Html::img(Yii::$app->request->BaseUrl . $model->product_thumbnail, ['width' => '60px']);
-                                    },
+                                            return Html::img($imageUrl, ['width' => '60px']);
+                                            //return Html::img(Yii::$app->request->BaseUrl . $model->product_thumbnail, ['width' => '60px']);
+                                        },
                                 ],
 
                                 [
@@ -95,9 +95,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'label' => 'Company',
                                     'headerOptions' => ['width' => '120'],
                                     'value' => function ($model, $key, $index, $column) {
-                                        if (empty($model->organization)) return null;
-                                        return  $model->organization->organization_name;
-                                    },
+                                            if (empty($model->organization))
+                                                return null;
+                                            return $model->organization->organization_name;
+                                        },
                                     'filter' => Product::getOrganizationName(),
                                 ],
                                 ['attribute' => 'product_name', 'headerOptions' => ['width' => '120']],
@@ -106,8 +107,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'attribute' => 'category_id',
                                     'headerOptions' => ['width' => '120'],
                                     'value' => function ($model, $key, $index, $column) {
-                                        return (empty($model->productcategory)) ? null : $model->productcategory->product_cate_name;
-                                    },
+                                            return (empty($model->productcategory)) ? null : $model->productcategory->product_cate_name;
+                                        },
                                     'filter' => Product::getProductcategoryName(),
                                 ],
                                 [
@@ -115,11 +116,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'label' => 'Box Size',
                                     'headerOptions' => ['width' => '120'],
                                     'value' => function ($model, $key, $index, $column) {
-                                        if (empty($model->boxmodel_id)) return null;
-                                        return  CommonStatus::box_size()[$model->boxmodel_id];
-                                    },
-                                  // 'filter' => Product::getBoxmodelname(),
-                                   'filter' => CommonStatus::box_size(),
+                                            if (empty($model->boxmodel_id))
+                                                return null;
+                                            return CommonStatus::box_size()[$model->boxmodel_id];
+                                        },
+                                    // 'filter' => Product::getBoxmodelname(),
+                                    'filter' => CommonStatus::box_size(),
                                 ],
                                 [
                                     'class' => 'yii\grid\ActionColumn',
@@ -128,19 +130,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'template' => '{update} {delete}', //只需要展示删除和更新{view}
                                     'buttons' => [
                                         'update' => function ($url, $model, $key) {
-                                            return Html::a('<i class="fa fa-edit"></i> Edit', Url::toRoute(['product/update', 'id' => $key]), ['class' => 'btn btn-primary btn-xs',]);
-                                        },
+                                                return Html::a('<i class="fa fa-edit"></i> Edit', Url::toRoute(['product/update', 'id' => $key]), ['class' => 'btn btn-primary btn-xs',]);
+                                            },
 
                                         'delete' => function ($url, $model, $key) {
-                                            return Html::a(
-                                                '<i class="fa fa-del"></i> Delete',
-                                                Url::toRoute(['product/delete', 'id' => $key]),
-                                                [
-                                                    'class' => 'btn btn-default btn-xs',
-                                                    'data' => ['confirm' => 'Are you sure to delete？',]
-                                                ]
-                                            );
-                                        },
+                                                return Html::a(
+                                                    '<i class="fa fa-del"></i> Delete',
+                                                    Url::toRoute(['product/delete', 'id' => $key]),
+                                                    [
+                                                        'class' => 'btn btn-default btn-xs',
+                                                        'data' => ['confirm' => 'Are you sure to delete？',]
+                                                    ]
+                                                );
+                                            },
                                     ],
                                 ],
                             ],
