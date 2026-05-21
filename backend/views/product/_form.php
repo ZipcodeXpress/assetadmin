@@ -36,9 +36,14 @@ use yii\widgets\ActiveForm;
     
     <?php
     if ($model->product_image) {
+        $thumbnail = (string)$model->product_thumbnail;
+        if (preg_match('/^https?:\/\//i', $thumbnail)) {
+            $imageUrl = $thumbnail;
+        } else {
+            $imageUrl = rtrim(Yii::$app->params['CDN_ADDRESS'], '/') . '/' . ltrim($thumbnail, '/');
+        }
 
-
-        echo '<img src="' .Yii::$app->params['CDN_ADDRESS'] . $model->product_thumbnail . '" width="90px">&nbsp;&nbsp;&nbsp;';
+        echo '<img src="' . Html::encode($imageUrl) . '" width="90px">&nbsp;&nbsp;&nbsp;';
         echo Html::a('Delete', ['deletefile', 'id' => $model->product_id], ['class' => 'btn btn-danger']) . '<p>';
     }
   

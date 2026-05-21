@@ -74,7 +74,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                     // if(empty($model->product_thumbnail))return null;
                                     // return  '<img src="' . '/' .  . '" width="90px">&nbsp;&nbsp;&nbsp;';
                                     'value' => function ($model) {
-										return Html::img(Yii::$app->params['CDN_ADDRESS'] . $model->product_thumbnail, ['width' => '60px']);
+                                        $thumbnail = (string)$model->product_thumbnail;
+                                        if ($thumbnail === '') {
+                                            return null;
+                                        }
+
+                                        if (preg_match('/^https?:\/\//i', $thumbnail)) {
+                                            $imageUrl = $thumbnail;
+                                        } else {
+                                            $imageUrl = rtrim(Yii::$app->params['CDN_ADDRESS'], '/') . '/' . ltrim($thumbnail, '/');
+                                        }
+
+                                        return Html::img($imageUrl, ['width' => '60px']);
                                         //return Html::img(Yii::$app->request->BaseUrl . $model->product_thumbnail, ['width' => '60px']);
                                     },
                                 ],
