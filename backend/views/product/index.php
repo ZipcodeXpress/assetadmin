@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 $thumbnail = $path . $query;
                                             }
 
-                                            $imageUrl = rtrim(Yii::$app->params['CDN_ADDRESS'], '/') . '/' . ltrim($thumbnail, '/');
+                                            $imageUrl = '/cdn-proxy/' . ltrim($thumbnail, '/');
 
                                             return Html::img($imageUrl, ['width' => '60px']);
                                             //return Html::img(Yii::$app->request->BaseUrl . $model->product_thumbnail, ['width' => '60px']);

@@ -44,7 +44,7 @@ if ($model->product_image) {
         $thumbnail = $path . $query;
     }
 
-    $imageUrl = rtrim(Yii::$app->params['CDN_ADDRESS'], '/') . '/' . ltrim($thumbnail, '/');
+    $imageUrl = '/cdn-proxy/' . ltrim($thumbnail, '/');
 
     echo '<img src="' . Html::encode($imageUrl) . '" width="90px">&nbsp;&nbsp;&nbsp;';
     echo Html::a('Delete', ['deletefile', 'id' => $model->product_id], ['class' => 'btn btn-danger']) . '<p>';
