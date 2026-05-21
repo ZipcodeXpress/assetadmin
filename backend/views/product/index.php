@@ -74,16 +74,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                     // if(empty($model->product_thumbnail))return null;
                                     // return  '<img src="' . '/' .  . '" width="90px">&nbsp;&nbsp;&nbsp;';
                                     'value' => function ($model) {
-                                            $thumbnail = (string) $model->product_thumbnail;
+                                            $thumbnail = trim((string)$model->product_thumbnail);
                                             if ($thumbnail === '') {
                                                 return null;
                                             }
 
-                                            if (preg_match('/^https?:\/\//i', $thumbnail)) {
-                                                $imageUrl = $thumbnail;
-                                            } else {
-                                                $imageUrl = rtrim(Yii::$app->params['CDN_ADDRESS'], '/') . '/' . ltrim($thumbnail, '/');
+                                            if (preg_match('/^(https?:)?\/\//i', $thumbnail)) {
+                                                $parts = parse_url($thumbnail);
+                                                $path = isset($parts['path']) ? $parts['path'] : '';
+                                                $query = isset($parts['query']) ? ('?' . $parts['query']) : '';
+                                                $thumbnail = $path . $query;
                                             }
+
+                                            $imageUrl = rtrim(Yii::$app->params['CDN_ADDRESS'], '/') . '/' . ltrim($thumbnail, '/');
 
                                             return Html::img($imageUrl, ['width' => '60px']);
                                             //return Html::img(Yii::$app->request->BaseUrl . $model->product_thumbnail, ['width' => '60px']);
